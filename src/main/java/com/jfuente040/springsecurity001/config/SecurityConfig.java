@@ -1,6 +1,5 @@
 package com.jfuente040.springsecurity001.config;
 
-import org.springframework.cglib.proxy.NoOp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,19 +10,24 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.jfuente040.springsecurity001.persistence.repository.UserRepository;
+import com.jfuente040.springsecurity001.service.UserDetailsServiceImpl;
 
 @Configuration 
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+
+    private final UserDetailsService userDetailsService;
+
+    public SecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -62,7 +66,7 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider() {
         // You can define a custom AuthenticationProvider here if needed
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider; // Returning the custom provider
     }
@@ -78,6 +82,7 @@ public class SecurityConfig {
     // InMemoryUserDetailsManager is used to store user details in memory for testing purposes
     // In a real application, you would typically use a database or another persistent storage
     // to store user details.
+    /*
     @Bean
     public UserDetailsService userDetailsService() {
        UserDetails user = User.withUsername("jfuente")
@@ -89,7 +94,7 @@ public class SecurityConfig {
                 .build();
         return new InMemoryUserDetailsManager(user);        
     }
+    */
 
-    
-
+  
 }
