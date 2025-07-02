@@ -15,9 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.jfuente040.springsecurity001.persistence.repository.UserRepository;
-import com.jfuente040.springsecurity001.service.UserDetailsServiceImpl;
-
 @Configuration 
 @EnableWebSecurity
 @EnableMethodSecurity
