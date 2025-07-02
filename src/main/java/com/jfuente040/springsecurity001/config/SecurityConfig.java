@@ -32,6 +32,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/hello").permitAll()
                         .requestMatchers("/auth/hello-secured").authenticated()
+                        // Permitir acceso a Swagger UI y documentación OpenAPI
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated())
 
                 .csrf(csrf -> csrf.disable())
