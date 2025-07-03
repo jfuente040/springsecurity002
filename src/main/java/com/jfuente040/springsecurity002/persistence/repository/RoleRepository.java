@@ -1,8 +1,9 @@
-package com.jfuente040.springsecurity001.persistence.repository;
+package com.jfuente040.springsecurity002.persistence.repository;
 
-import com.jfuente040.springsecurity001.persistence.entity.RoleEntity;
-import com.jfuente040.springsecurity001.persistence.entity.RoleEnum;
 import org.springframework.data.repository.CrudRepository;
+
+import com.jfuente040.springsecurity002.persistence.entity.RoleEntity;
+import com.jfuente040.springsecurity002.persistence.entity.RoleEnum;
 
 import java.util.Optional;
 

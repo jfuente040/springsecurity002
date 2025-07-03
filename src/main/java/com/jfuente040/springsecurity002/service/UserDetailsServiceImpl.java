@@ -1,15 +1,16 @@
-package com.jfuente040.springsecurity001.service;
+package com.jfuente040.springsecurity002.service;
 
-import com.jfuente040.springsecurity001.persistence.entity.PermissionEntity;
-import com.jfuente040.springsecurity001.persistence.entity.RoleEntity;
-import com.jfuente040.springsecurity001.persistence.entity.UserEntity;
-import com.jfuente040.springsecurity001.persistence.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.jfuente040.springsecurity002.persistence.entity.PermissionEntity;
+import com.jfuente040.springsecurity002.persistence.entity.RoleEntity;
+import com.jfuente040.springsecurity002.persistence.entity.UserEntity;
+import com.jfuente040.springsecurity002.persistence.repository.UserRepository;
 
 import java.util.HashSet;
 import java.util.Set;

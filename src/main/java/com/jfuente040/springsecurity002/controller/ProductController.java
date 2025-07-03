@@ -1,10 +1,11 @@
-package com.jfuente040.springsecurity001.controller;
+package com.jfuente040.springsecurity002.controller;
 
-import com.jfuente040.springsecurity001.persistence.entity.ProductEntity;
-import com.jfuente040.springsecurity001.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import com.jfuente040.springsecurity002.persistence.entity.ProductEntity;
+import com.jfuente040.springsecurity002.service.ProductService;
 
 import java.util.List;
 

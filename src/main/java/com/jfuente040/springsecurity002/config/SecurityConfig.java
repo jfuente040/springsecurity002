@@ -1,4 +1,4 @@
-package com.jfuente040.springsecurity001.config;
+package com.jfuente040.springsecurity002.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

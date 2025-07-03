@@ -1,4 +1,4 @@
-package com.jfuente040.springsecurity001.persistence.entity;
+package com.jfuente040.springsecurity002.persistence.entity;
 
 public enum RoleEnum {
     ADMIN("ROLE_ADMIN", "Administrator"),

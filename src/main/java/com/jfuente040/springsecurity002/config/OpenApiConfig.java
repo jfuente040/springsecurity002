@@ -1,4 +1,4 @@
-package com.jfuente040.springsecurity001.config;
+package com.jfuente040.springsecurity002.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

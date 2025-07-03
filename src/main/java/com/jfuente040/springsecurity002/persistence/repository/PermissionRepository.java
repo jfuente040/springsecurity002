@@ -1,8 +1,10 @@
-package com.jfuente040.springsecurity001.persistence.repository;
+package com.jfuente040.springsecurity002.persistence.repository;
 
-import com.jfuente040.springsecurity001.persistence.entity.PermissionEntity;
-import com.jfuente040.springsecurity001.persistence.entity.PermissionEnum;
 import org.springframework.data.repository.CrudRepository;
+
+import com.jfuente040.springsecurity002.persistence.entity.PermissionEntity;
+import com.jfuente040.springsecurity002.persistence.entity.PermissionEnum;
+
 import java.util.Optional;
 
 public interface PermissionRepository extends CrudRepository<PermissionEntity, Long> {

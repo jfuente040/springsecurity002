@@ -1,4 +1,4 @@
-package com.jfuente040.springsecurity001.persistence.entity;
+package com.jfuente040.springsecurity002.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -15,16 +16,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "permissions")
-public class PermissionEntity {
+@Table(name = "roles")
+public class RoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "permission_name", nullable = false, unique = true, length = 100)
-    private PermissionEnum permissionName;
+    @Column(name = "role_name", nullable = false, unique = true, length = 50)
+    private RoleEnum roleName;
 
     @Column(length = 255)
     private String description;
@@ -40,6 +41,14 @@ public class PermissionEntity {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "role_permissions",
+        joinColumns = @JoinColumn(name = "role_id"),
+        inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private Set<PermissionEntity> permissions;
 
     @PreUpdate
     public void preUpdate() {

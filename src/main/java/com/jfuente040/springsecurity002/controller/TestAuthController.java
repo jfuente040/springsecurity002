@@ -1,4 +1,4 @@
-package com.jfuente040.springsecurity001.controller;
+package com.jfuente040.springsecurity002.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

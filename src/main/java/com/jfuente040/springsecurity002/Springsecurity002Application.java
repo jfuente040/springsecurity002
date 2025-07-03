@@ -1,18 +1,19 @@
-package com.jfuente040.springsecurity001;
+package com.jfuente040.springsecurity002;
 
-import com.jfuente040.springsecurity001.persistence.entity.PermissionEntity;
-import com.jfuente040.springsecurity001.persistence.entity.PermissionEnum;
-import com.jfuente040.springsecurity001.persistence.entity.RoleEntity;
-import com.jfuente040.springsecurity001.persistence.entity.RoleEnum;
-import com.jfuente040.springsecurity001.persistence.entity.UserEntity;
-import com.jfuente040.springsecurity001.persistence.repository.PermissionRepository;
-import com.jfuente040.springsecurity001.persistence.repository.RoleRepository;
-import com.jfuente040.springsecurity001.persistence.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.jfuente040.springsecurity002.persistence.entity.PermissionEntity;
+import com.jfuente040.springsecurity002.persistence.entity.PermissionEnum;
+import com.jfuente040.springsecurity002.persistence.entity.RoleEntity;
+import com.jfuente040.springsecurity002.persistence.entity.RoleEnum;
+import com.jfuente040.springsecurity002.persistence.entity.UserEntity;
+import com.jfuente040.springsecurity002.persistence.repository.PermissionRepository;
+import com.jfuente040.springsecurity002.persistence.repository.RoleRepository;
+import com.jfuente040.springsecurity002.persistence.repository.UserRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -20,10 +21,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
-public class Springsecurity001Application {
+public class Springsecurity002Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Springsecurity001Application.class, args);
+		SpringApplication.run(Springsecurity002Application.class, args);
 	}
 
 	@Bean

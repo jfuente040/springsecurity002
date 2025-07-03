@@ -1,8 +1,9 @@
-package com.jfuente040.springsecurity001.service;
+package com.jfuente040.springsecurity002.service;
 
-import com.jfuente040.springsecurity001.persistence.entity.ProductEntity;
-import com.jfuente040.springsecurity001.persistence.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+
+import com.jfuente040.springsecurity002.persistence.entity.ProductEntity;
+import com.jfuente040.springsecurity002.persistence.repository.ProductRepository;
 
 import java.util.List;
 import java.util.Optional;
