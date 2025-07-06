@@ -1,5 +1,6 @@
 package com.jfuente040.springsecurity002.config;
 
+import com.jfuente040.springsecurity002.config.filter.JwtTokenValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,10 +11,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration 
 @EnableWebSecurity
@@ -21,27 +24,30 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
+    private final JwtTokenValidator jwtTokenValidator;
 
-    public SecurityConfig(UserDetailsService userDetailsService) {
+    public SecurityConfig(UserDetailsService userDetailsService, JwtTokenValidator jwtTokenValidator) {
         this.userDetailsService = userDetailsService;
+        this.jwtTokenValidator = jwtTokenValidator;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/hello").permitAll()
-                        .requestMatchers("/auth/hello-secured").authenticated()
-                        // Permitir acceso a Swagger UI y documentación OpenAPI
+                        // Endpoints públicos
+                        .requestMatchers("/auth/hello", "/auth/login", "/auth/signup").permitAll()
+                        // Documentación de API
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                        // Endpoints que requieren autenticación
+                        .requestMatchers("/auth/hello-secured", "/auth/others").authenticated()
                         .anyRequest().authenticated())
-
                 .csrf(csrf -> csrf.disable())
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(formlogin -> formlogin.disable()) // Disable form login
-                .logout(logout -> logout.disable()) // Disable logout
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS)) // Stateless session management
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // Agregar el filtro JWT antes del BasicAuthenticationFilter
+                .addFilterBefore(jwtTokenValidator, BasicAuthenticationFilter.class)
                 .build();
     }
 

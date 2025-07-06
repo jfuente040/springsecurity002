@@ -3,9 +3,11 @@ package com.jfuente040.springsecurity002;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.jfuente040.springsecurity002.config.JwtProperties;
 import com.jfuente040.springsecurity002.persistence.entity.PermissionEntity;
 import com.jfuente040.springsecurity002.persistence.entity.PermissionEnum;
 import com.jfuente040.springsecurity002.persistence.entity.RoleEntity;
@@ -21,6 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
+@EnableConfigurationProperties(JwtProperties.class)
 public class Springsecurity002Application {
 
 	public static void main(String[] args) {
