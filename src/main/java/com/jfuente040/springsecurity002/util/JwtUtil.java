@@ -52,11 +52,12 @@ public class JwtUtil {
     private RSAPrivateKey loadPrivateKey() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         ClassPathResource resource = new ClassPathResource(jwtProperties.getPrivateKeyPath());
         String content = new String(Files.readAllBytes(Paths.get(resource.getURI())));
-
+        // Limpiar el contenido de la clave privada
+        // Eliminar encabezados y pies de página, y espacios en blanco
         content = content.replace("-----BEGIN PRIVATE KEY-----", "")
                 .replace("-----END PRIVATE KEY-----", "")
                 .replaceAll("\\s", "");
-
+        // Decodificar la clave privada desde Base64
         byte[] keyBytes = Base64.getDecoder().decode(content);
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
