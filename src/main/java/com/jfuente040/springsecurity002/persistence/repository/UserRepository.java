@@ -9,5 +9,7 @@ import com.jfuente040.springsecurity002.persistence.entity.UserEntity;
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByUsername(String username);
+    
+    boolean existsByUsername(String username);
 
 }
