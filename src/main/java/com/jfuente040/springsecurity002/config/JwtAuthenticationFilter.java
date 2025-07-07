@@ -74,7 +74,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         grantedAuthorities
                 );
 
-                // Establecer detalles adicionales
+                // Establecer detalles adicionales en el token de autenticación
+                // sobre el request actual, como IP origen, el sesionId y otros detalles
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 
                 // Establecer autenticación en el contexto de seguridad

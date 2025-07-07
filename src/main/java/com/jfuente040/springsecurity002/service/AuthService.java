@@ -34,6 +34,10 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public JwtService getJwtService() {
+        return jwtService;
+    }
+
     public AuthResponse login(LoginRequest loginRequest) {
         try {
             // Autenticar usuario

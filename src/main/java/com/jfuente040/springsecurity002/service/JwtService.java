@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
-import org.springframework.beans.factory.annotation.Value;
+import com.jfuente040.springsecurity002.config.JwtProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 @Service
 public class JwtService {
 
-    @Value("${jwt.secret:mySecretKey}")
-    private String secretKey;
+    private final JwtProperties jwtProperties;
 
-    @Value("${jwt.expiration:86400000}") // 24 horas por defecto
-    private Long jwtExpiration;
+    public JwtService(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
+    }
 
     private Algorithm getAlgorithm() {
-        return Algorithm.HMAC256(secretKey);
+        return Algorithm.HMAC256(jwtProperties.getSecret());
     }
 
     public String generateToken(Authentication authentication) {
@@ -34,9 +34,10 @@ public class JwtService {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-        Date expirationDate = new Date(System.currentTimeMillis() + jwtExpiration);
+        Date expirationDate = new Date(System.currentTimeMillis() + jwtProperties.getExpiration());
 
         return JWT.create()
+            .withIssuer(jwtProperties.getUserGenerator())
                 .withSubject(username)
                 .withClaim("authorities", authorities)
                 .withIssuedAt(new Date())
@@ -57,6 +58,15 @@ public class JwtService {
         try {
             DecodedJWT decodedJWT = verifyToken(token);
             return decodedJWT.getClaim("authorities").asString();
+        } catch (JWTVerificationException e) {
+            throw new RuntimeException("Token inválido", e);
+        }
+    }
+
+    public String extractIssuer(String token) {
+        try {
+            DecodedJWT decodedJWT = verifyToken(token);
+            return decodedJWT.getIssuer();
         } catch (JWTVerificationException e) {
             throw new RuntimeException("Token inválido", e);
         }

@@ -62,6 +62,35 @@ public class TestAuthController {
          + authentication.getName();
     }
 
+    @GetMapping("/token-info")
+    public ResponseEntity<Object> getTokenInfo(
+            @RequestHeader("Authorization") String authHeader,
+            Authentication authentication) {
+        try {
+            // Extraer el token del header Authorization
+            String token = authHeader.substring(7); // Remover "Bearer "
+            
+            // Usar JwtService para extraer información del token
+            String username = authService.getJwtService().extractUsername(token);
+            String authorities = authService.getJwtService().extractAuthorities(token);
+            String userGenerator = authService.getJwtService().extractUserGenerator(token);
+            
+            // Crear respuesta con información del token
+            var tokenInfo = new java.util.HashMap<String, Object>();
+            tokenInfo.put("username", username);
+            tokenInfo.put("authorities", authorities);
+            tokenInfo.put("userGenerator", userGenerator);
+            tokenInfo.put("authenticatedUser", authentication.getName());
+            tokenInfo.put("isValid", authService.getJwtService().isTokenValid(token));
+            tokenInfo.put("isExpired", authService.getJwtService().isTokenExpired(token));
+            
+            return ResponseEntity.ok(tokenInfo);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body("Error al procesar el token: " + e.getMessage());
+        }
+    }
+
 
 
 
